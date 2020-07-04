@@ -21,9 +21,15 @@
     <ClCompile Include="LibraryUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StudentSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LibraryUser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StudentSort.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

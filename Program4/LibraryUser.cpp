@@ -48,7 +48,9 @@ const LibraryUser& LibraryUser::operator=(const LibraryUser& rhs) {
 		firstName = rhs.firstName;
 		lastName = rhs.lastName;
 		studentId = rhs.studentId;
+		checkedOut = rhs.checkedOut;
 		itemArraySize = rhs.itemArraySize;
+		//barCodes = rhs.barCodes;
 	}
 	return *this;
 }
@@ -114,16 +116,19 @@ unsigned int LibraryUser::CheckoutCount() const {
 //bool LibraryUser::CheckOut(const std::string& item) {
 //
 //}
-//
-//
+
+
 //bool LibraryUser::CheckIn(const std::string& item) {
 //
 //}
-//
-//
-//bool LibraryUser::HasCheckedOut(const std::string& item) {
-//
-//}
+
+
+bool LibraryUser::HasCheckedOut(const std::string& item) {
+
+
+
+	return true;
+}
 
 
 void LibraryUser::Clear() {
@@ -131,6 +136,7 @@ void LibraryUser::Clear() {
 	lastName = " ";
 	studentId = 0;
 	checkedOut = 0;
+	itemArraySize = 5;
 
 	if (barCodes != nullptr) {
 		delete[] barCodes;
@@ -140,25 +146,31 @@ void LibraryUser::Clear() {
 
 
 bool LibraryUser::ReadData(std::istream& in) {
-	unsigned int Id;
-	std::string first;
-	std::string last;
+	unsigned int Id;			// Student's ID number
+	std::string first;			// Student's first name
+	std::string last;			// Student's last name
 	unsigned int itemsOut;		// Number of items checked out from file
-	std::string bookCode;
-	int itemIndex = 0;
+	std::string bookCode;		// Holding variable for bar codes
+	int itemIndex = 0;			// Index for bar code array
 	std::string* tempCodes;		// Holding array for reallocating data
-
-		
+	
+	// STEP 1: Reset student data
 	Clear();
+
+	// STEP 2: Read Static Data
 	in >> Id;
-	setStudentId(Id);
+	if (!setStudentId(Id)) {	// End ReadData if ID is invalid
+		return false;
+	}
+
 	in >> first;
 	setFirstName(first);
 	in >> last;
 	setLastName(last);
 	in >> itemsOut;
+	checkedOut = itemsOut;
 	
-	// Read barcodes if student has items checked out
+	// STEP 3: Read barcodes if student has items checked out
 	if (itemsOut > 0) {
 		barCodes = new std::string[itemArraySize];
 		for (int i = 0; i < itemsOut; i++) {
@@ -167,12 +179,12 @@ bool LibraryUser::ReadData(std::istream& in) {
 			itemIndex++;
 
 			// Reallocate data into larger array if current array is full
-			if (itemsOut == itemArraySize) {
+			if (itemIndex == itemArraySize) {
 				itemArraySize *= 2;
 				tempCodes = new std::string[itemArraySize];
 
 				// Copy contents of old array into new array
-				for (int i = 0; i < itemsOut; i++) {
+				for (int i = 0; i < itemIndex; i++) {
 					tempCodes[i] = barCodes[i];
 				}
 
@@ -184,7 +196,6 @@ bool LibraryUser::ReadData(std::istream& in) {
 		}
 	}
 	else {
-		itemArraySize = 0;
 		barCodes = nullptr;
 	}
 

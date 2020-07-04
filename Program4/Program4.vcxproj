@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="LibraryUser.cpp" />
     <ClCompile Include="Program4.cpp" />
+    <ClCompile Include="StudentSort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LibraryUser.h" />
+    <ClInclude Include="StudentSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

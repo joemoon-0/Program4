@@ -1,18 +1,16 @@
-
 #ifndef LIBRARY_USER_H
 #define LIBRARY_USER_H
 
 #include <string>
 
-
 class LibraryUser {
 private:
-	std::string firstName;
-	std::string lastName;
-	unsigned int studentId;
-	unsigned int checkedOut;
-	unsigned int itemArraySize;
-	std::string* barCodes;
+	std::string firstName;			// Student's first name
+	std::string lastName;			// Student's last name
+	unsigned int studentId;			// Student's ID number
+	unsigned int checkedOut;		// Number of items the student has checked out
+	unsigned int itemArraySize;		// Array size for item bar codes
+	std::string* barCodes;			// Pointer for bar code array
 
 public:
 	LibraryUser();
