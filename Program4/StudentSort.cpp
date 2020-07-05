@@ -8,6 +8,7 @@ void StudentSort(LibraryUser* &studentList, int rosterSize) {
 		j = i;
 
 		if (studentList[j].getStudentId() == 0) {
+			// ERROR CONDITION: Discontinue sort if array elements with no data is reached
 			break;
 		}
 		else {

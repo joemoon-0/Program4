@@ -18,7 +18,7 @@ int main() {
 	std::ofstream out;
 	int rosterSize = 5;				// Initial array size of student roster
 	int rosterIndex;				// Index of student within roster array
-	int n_students = 0;				// Index for student roster array
+	int n_students = 0;				// Number of student objects within roster array
 	int studentId;					// Holding variable for activity data
 	std::string bookCode;			// Holding variable for activity data
 	std::string action;				// Check in or Check out
@@ -76,27 +76,18 @@ int main() {
 		std::cout << "Could not open file: " << file2 << std::endl;
 	}
 	else {
+		//STEP 3B: Read and process activity data
 		in >> action;
 		in >> studentId;
 		in >> bookCode;
-		while (!in.eof()) {
-			// STEP 3B: Match student data with activity
-			rosterIndex = StudentSearch(roster, n_students, studentId);
+		rosterIndex = StudentSearch(roster, n_students, studentId);
 
-			// STEP 3C: Adjust student records
-			if (action == "IN") {
-				roster[rosterIndex].CheckIn(bookCode);
-			}
-			else if (action == "OUT") {
-				roster[rosterIndex].CheckOut(bookCode);
-			}
-			else {
-				std::cout << "Invalid Activity Read" << std::endl;
-			}
-
+		while (action == "IN" && roster[rosterIndex].CheckIn(bookCode) 
+			|| action == "OUT" && roster[rosterIndex].CheckOut(bookCode)) {
 			in >> action;
 			in >> studentId;
 			in >> bookCode;
+			rosterIndex = StudentSearch(roster, n_students, studentId);
 		}
 	}
 	in.close();

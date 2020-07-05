@@ -125,7 +125,6 @@ bool LibraryUser::CheckOut(const std::string& item) {
 		
 		if (barCodes != nullptr) {
 			// STEP 2B: Add item to barCodes array	
-			
 			// Expand bar code array if full
 			if (barCodes[itemArraySize - 1] != "") {
 				itemArraySize *= 2;
@@ -199,8 +198,8 @@ bool LibraryUser::HasCheckedOut(const std::string& item) {
 
 
 void LibraryUser::Clear() {
-	firstName = " ";
-	lastName = " ";
+	firstName = "";
+	lastName = "";
 	studentId = 0;
 	checkedOut = 0;
 	itemArraySize = 3;
@@ -271,7 +270,7 @@ bool LibraryUser::WriteData(std::ostream& out) {
 	unsigned int i;			// loop variable
 
 	if (getStudentId() == 0) {
-		// Skip empty elements after last valid student entry
+		// ERROR CONDITION: Discontinue writing after last valid student entry
 		return false;
 	}
 	else {
